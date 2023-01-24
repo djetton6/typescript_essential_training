@@ -28,3 +28,19 @@ let primaryContact: Contact = {
 }
 
 type ContactName = string
+
+
+///adding a type in the function for source.
+
+function clone(source: Contact): Contact {
+    return Object.apply({}, source);
+}
+
+const a: Contact = {
+    id: 123, name: "Sample Tyrone",
+    birthDate: undefined,
+    status: ContactStatus.Active,
+    line1: "",
+    line2: ""
+};
+const b = clone(a)
