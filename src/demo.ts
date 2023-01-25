@@ -3,6 +3,8 @@ interface Contact extends Address {
     name: string;
     birthDate: Date;
     status: ContactStatus;
+    //you can type out functions on the interface.
+    // clone(): Contact 
 }
 
 
@@ -10,6 +12,8 @@ interface Address {
     line1: string
     line2: string
 }
+
+
 
 enum ContactStatus {
     Active = 'active',
@@ -41,6 +45,8 @@ const a: Contact = {
     birthDate: undefined,
     status: ContactStatus.Active,
     line1: "",
-    line2: ""
+    line2: "",
 };
 const b = clone(a)
+
+//Generics from method type
