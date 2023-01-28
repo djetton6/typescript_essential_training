@@ -1,52 +1,45 @@
-interface Contact extends Address {
-    id: number;
-    name: string;
-    birthDate: Date;
-    status: ContactStatus;
-    //you can type out functions on the interface.
-    // clone(): Contact 
+
+// you need an equal sign for enum values
+enum Status {
+    Todo =  "todo",
+    InProgress = "in-progress",
+    Done = "done",
 }
-
-
-interface Address {
-    line1: string
-    line2: string
-}
-
-
-
-enum ContactStatus {
-    Active = 'active',
-    Offline = "offline",
-
-}
-// Interface is used for typechecking(only used at compile time)
-
-let primaryContact: Contact = {
-    birthDate: new Date("01-01-1939"),
-    id: 12345,
-    name: "Testing 123",
-    line1: "Cherry Tree",
-    line2: "Chicago, IL",
-    status: ContactStatus.Offline,
-}
-
-type ContactName = string
-
-
-///adding a type in the function for source.
-
-function clone(source: Contact): Contact {
-    return Object.apply({}, source);
-}
-
-const a: Contact = {
-    id: 123, name: "Sample Tyrone",
-    birthDate: undefined,
-    status: ContactStatus.Active,
-    line1: "",
-    line2: "",
+//must declare an enum value like this: status: Status.Done,
+interface Todo {
+    id: number,
+    title: string,
+    status: Status,
+    completedOn?: Date,
 };
-const b = clone(a)
 
-//Generics from method type
+
+const todoItems:Array<Todo> = [
+    { id: 1, title: "Learn HTML", status: Status.Done, completedOn: new Date("2021-09-11") },
+    { id: 2, title: "Learn TypeScript", status: Status.InProgress },
+    { id: 3, title: "Write the best app in the world", status: Status.Todo },
+]
+
+function addTodoItem(todo:string): Todo {
+    const id = getNextId(todoItems)
+
+    const newTodo:Todo = {
+        id,
+        title: todo,
+        status: Status.Todo,
+    }
+
+    todoItems.push(newTodo)
+
+    return newTodo
+}
+
+//Generic Function declaration
+
+// function getNextId<T extends { id: number}> (items : []): number {
+//     return items.reduce((max, x) => x.id > max ? max : x.id, 0) + 1
+// }
+
+const newTodo = addTodoItem("Buy lots of stuff with all the money we make from the app")
+
+console.log(JSON.stringify(newTodo))
