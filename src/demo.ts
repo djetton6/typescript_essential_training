@@ -1,45 +1,45 @@
+type ContactName = string;
 
-// you need an equal sign for enum values
-enum Status {
-    Todo =  "todo",
-    InProgress = "in-progress",
-    Done = "done",
+// create an alias
+type ContactBirthDate =  Date | number | string;
+
+
+type ContactStatus = "active" | "inactive" | "new"
+
+// use pipes for multiple options
+interface Contact {
+    id : number;
+    name: ContactName;
+    birthDate?: ContactBirthDate
+    status?: ContactStatus
 }
-//must declare an enum value like this: status: Status.Done,
-interface Todo {
-    id: number,
-    title: string,
-    status: Status,
-    completedOn?: Date,
-};
 
+interface Address {
+    line1: string;
+    line2: string;
+    province: string;
+    region: string;
+    postalCode: string;
+}
 
-const todoItems:Array<Todo> = [
-    { id: 1, title: "Learn HTML", status: Status.Done, completedOn: new Date("2021-09-11") },
-    { id: 2, title: "Learn TypeScript", status: Status.InProgress },
-    { id: 3, title: "Write the best app in the world", status: Status.Todo },
-]
+//create a hybrid type to create a new type
 
-function addTodoItem(todo:string): Todo {
-    const id = getNextId(todoItems)
+type AddressContact = Contact & Address
 
-    const newTodo:Todo = {
-        id,
-        title: todo,
-        status: Status.Todo,
+function getBday(contact:Contact) {
+    if(typeof contact.birthDate === 'number') {
+        return new Date(contact.birthDate);
     }
-
-    todoItems.push(newTodo)
-
-    return newTodo
+    else if (typeof contact.birthDate === "string") {
+            return Date.parse(contact.birthDate)
+        }
+    else {
+        return contact.birthDate
+    }
 }
-
-//Generic Function declaration
-
-// function getNextId<T extends { id: number}> (items : []): number {
-//     return items.reduce((max, x) => x.id > max ? max : x.id, 0) + 1
-// }
-
-const newTodo = addTodoItem("Buy lots of stuff with all the money we make from the app")
-
-console.log(JSON.stringify(newTodo))
+//Aliases are a powerful alternative to ENUM values
+let primaryContact: Contact = {
+    id: 12345,
+    name: "Jamie Johnson",
+    status: "active"
+}
