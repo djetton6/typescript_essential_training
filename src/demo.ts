@@ -43,3 +43,35 @@ let primaryContact: Contact = {
     name: "Jamie Johnson",
     status: "active"
 }
+
+type ContactFields = keyof Contact
+
+//
+const field: ContactFields = "birthDate"
+
+// used to create less errors and limits the values of the second values.
+
+
+// /use the Typeof Operator
+
+function toContact(nameOrContact: string | Contact): Contact {
+    if (typeof nameOrContact === "object") {
+        return {
+            id: nameOrContact.id,
+            name: nameOrContact.name,
+            status: nameOrContact.status
+        }
+    }
+    else {
+        return {
+            id: 0,
+            name: nameOrContact,
+            status: "active"
+        }
+    }
+}
+
+
+//You can use the typeof for different variables.
+const myType = {min: 1, max: 200}
+function save(source: typeof myType) {}
