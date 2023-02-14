@@ -75,3 +75,10 @@ function toContact(nameOrContact: string | Contact): Contact {
 //You can use the typeof for different variables.
 const myType = {min: 1, max: 200}
 function save(source: typeof myType) {}
+
+//record syntax
+
+let x: Record<string, string | number | Function > = {name: "Bruce Wayne"}
+x.number = 1234
+
+// used for additional types for accepted types.
